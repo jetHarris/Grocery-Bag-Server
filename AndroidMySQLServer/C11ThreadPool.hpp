@@ -3,7 +3,10 @@
 #include <mutex>
 #include <thread>
 #include <condition_variable>
+#include <sstream>
 #include "ThreadPool.hpp"
+#include "view.hpp"
+#include "SQLService.hpp"
 
 class C11ThreadPool: public ThreadPool {
 
@@ -15,10 +18,10 @@ class C11ThreadPool: public ThreadPool {
 	void setupThreads() override;
 	void waitForTask();
 
-
+	MySql& _mysql;
 public:
 
-	C11ThreadPool() : ThreadPool() {
+	C11ThreadPool(MySql& mysql) : ThreadPool(), _mysql(mysql) {
 		setupThreads();
 	}
 	virtual ~C11ThreadPool();

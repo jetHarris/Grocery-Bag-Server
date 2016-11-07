@@ -1,5 +1,5 @@
 #include "C11ThreadPool.hpp"
-#include <iostream>
+
 using namespace std;
 
 
@@ -42,30 +42,41 @@ void C11ThreadPool::waitForTask()
 
 			if (haveTask) {
 				//start the file parse
-				cout << "[" << this_thread::get_id() << "] performing task..." << endl;
-				cout << "Client Connected! IP: " << task->getClientIP() << " Port: " << task->getClientPort() << endl;
-				vector<char> data =  task->getData();
+				ostringstream oss;
 
-				
-				
-				for (auto const& c : data)
-					std::cout << c;
+				oss << "[" << this_thread::get_id() << "] performing task..." << endl;
+				oss << "Client Connected! IP: " << task->getClientIP() << " Port: " << task->getClientPort() << endl;
+				_CONSOLE_OUT(oss.str());
 
-				cout << endl;
+				SQLService service(task, _mysql);
+				service.waitForIncomingMessage();
 
-				vector<char> msg;
-				msg.push_back('H');
-				msg.push_back('e');
-				msg.push_back('l');
-				msg.push_back('l');
-				msg.push_back('o');
-				msg.push_back(' ');
-				msg.push_back('y');
-				msg.push_back('o');
-				msg.push_back('u');
-				msg.push_back('\n');
-				task->sendData(msg);
+				oss << "[" << this_thread::get_id() << "] finishing task..." << endl;
+				oss << " IP: " << task->getClientIP() << " Port: " << task->getClientPort() << endl;
+				_CONSOLE_OUT(oss.str());
 				task->close();
+				//vector<char> data =  task->getData();
+
+				
+				
+				//for (auto const& c : data)
+				//	std::cout << c;
+
+				//cout << endl;
+
+				//vector<char> msg;
+				//msg.push_back('H');
+				//msg.push_back('e');
+				//msg.push_back('l');
+				//msg.push_back('l');
+				//msg.push_back('o');
+				//msg.push_back(' ');
+				//msg.push_back('y');
+				//msg.push_back('o');
+				//msg.push_back('u');
+				//msg.push_back('\n');
+				//task->sendData(msg);
+				//task->close();
 			}
 		}
 	}

@@ -2,6 +2,9 @@
 #include <iostream>
 #include "TCPSocket.hpp"
 #include "C11ThreadPool.hpp"
+#include "view.hpp"
+#include <sstream>
+#include "BankItem.hpp"
 
 using namespace std;
 
@@ -13,7 +16,7 @@ BOOL CtrlHandler(DWORD ctrlType)
 {
 	switch (ctrlType) {
 	case CTRL_C_EVENT:
-		cout << "Closing Threads!" << endl;
+		_CONSOLE_OUT("Closing Threads!\n");
 		p_tSocket->close();
 		return TRUE;
 	}
@@ -34,9 +37,31 @@ int main() {
 	dbgFlags |= _CRTDBG_LEAK_CHECK_DF;
 	_CrtSetDbgFlag(dbgFlags);
 #endif
+	/*_CONSOLE_OUT("sizeof(ItemBankItem) = ");
+	_CONSOLE_OUT(to_string(sizeof(ItemBankItem)));
+	_CONSOLE_OUT("\nid size = ");
+	_CONSOLE_OUT(to_string(sizeof(ItemBankItem::id)));
+	_CONSOLE_OUT("\nitem_name = ");
+	_CONSOLE_OUT(to_string(sizeof(ItemBankItem::item_name)));
+	_CONSOLE_OUT("\nprice = ");
+	_CONSOLE_OUT(to_string(sizeof(ItemBankItem::price)));
+	_CONSOLE_OUT("\nsale_price = ");
+	_CONSOLE_OUT(to_string(sizeof(ItemBankItem::sale_price)));
+	_CONSOLE_OUT("\nbitfield = ");
+	_CONSOLE_OUT(to_string(sizeof(ItemBankItem::bitfield)));
+	_CONSOLE_OUT("\ntotal_size = ");
 
+	unsigned long long total_size = sizeof(ItemBankItem::id) + sizeof(ItemBankItem::item_name) + sizeof(ItemBankItem::price)
+		+ sizeof(ItemBankItem::sale_price) + sizeof(ItemBankItem::bitfield);
 
+	_CONSOLE_OUT(to_string(total_size));
+	_CONSOLE_OUT("\n");
 
+	volatile ItemBankItem ibi;
+	volatile char* p_ibi = (char*)&ibi.id;
+	for (unsigned i = 0; i < sizeof(ItemBankItem); ++i) {
+		*(p_ibi + i)= 'A';		
+	}*/
 
 	//register a control handler for nice clean up
 	SetConsoleCtrlHandler((PHANDLER_ROUTINE)CtrlHandler, TRUE);
@@ -44,38 +69,47 @@ int main() {
 	TCPServerSocket tSock(15574);
 	p_tSocket = &tSock;
 	if (tSock.hasError()) {
-		cout << "There was an issue starting the socket..." << endl;
-		cout << "Error: " << tSock.getError() << endl;
-		cout << "Error no: " << tSock.getErrorNumber() << endl;
+		ostringstream oss;
+		oss << "There was an issue starting the socket..." << endl;
+		oss << "Error: " << tSock.getError() << endl;
+		oss << "Error no: " << tSock.getErrorNumber() << endl;
+		_CONSOLE_OUT(oss.str());
+
+		return EXIT_FAILURE;
 	}
 #pragma region GET_HOST_IP
 	//http://tangentsoft.net/wskfaq/examples/ipaddr.html
 	char ac[80];
 	if (gethostname(ac, sizeof(ac)) == -1)
-		cout << "Unable to get host name" << endl;
-	cout << "Use IP: " << ac << endl;
+		_CONSOLE_OUT("Unable to get host name\n");
+
+	_CONSOLE_OUT("Use IP: ");
+	_CONSOLE_OUT(ac);
+	_CONSOLE_OUT("\n");
 
 
 	struct hostent *phe = gethostbyname(ac);
 	if (phe == 0) {
-		cerr << "Yow! Bad host lookup." << endl;
+		_CONSOLE_OUT("Yow! Bad host lookup.");
 		return 1;
 	}
 
 	for (int i = 0; phe->h_addr_list[i] != 0; ++i) {
 		struct in_addr addr;
 		memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
-		cout << "Address " << i << ": " << inet_ntoa(addr) << endl;
+		ostringstream oss;
+		oss << "Address " << i << ": " << inet_ntoa(addr) << endl;
+		_CONSOLE_OUT(oss.str());
 	}
 #pragma endregion
 
-	/*sql::SQLString database = "tcp://localhost:3306";
+	sql::SQLString database = "tcp://localhost:3306";
 	sql::SQLString user = "root";
 	sql::SQLString password = "mySQLPassword2016!";
 	sql::SQLString schema = "groceryList";
 
 	MySql mysql(database, user, password, schema);
-	string userName = "Jon";
+	/*string userName = "Jon";
 
 	try {
 
@@ -94,7 +128,7 @@ int main() {
 		cout << ", SQLState: " << e.getSQLState() << " )" << endl;
 	}
 	*/
-	C11ThreadPool tp;
+	C11ThreadPool tp(mysql);
 
 	for (;;) {
 		ConnectedPackage& cp(tSock.acceptClient());

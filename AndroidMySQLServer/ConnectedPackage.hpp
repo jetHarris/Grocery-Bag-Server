@@ -51,6 +51,12 @@ public:
 		return bytesSent;
 	}
 
+	//getData
+	//gets the data from the client using recv
+	//Accepts: -
+	//Returns: a vector of char
+	//Modifies: -
+	//Note: THIS METHOD PERFORMS A BLOCKING CALL
 	std::vector<char> getData() {
 		const unsigned bufferSize = 1024;
 		std::vector<char> data;
