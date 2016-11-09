@@ -36,6 +36,9 @@
     <ClInclude Include="BankItem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ListBankItem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

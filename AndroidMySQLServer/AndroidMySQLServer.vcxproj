@@ -151,6 +151,7 @@
     <ClInclude Include="BankItem.hpp" />
     <ClInclude Include="C11ThreadPool.hpp" />
     <ClInclude Include="ConnectedPackage.hpp" />
+    <ClInclude Include="ListBankItem.hpp" />
     <ClInclude Include="MySql.hpp" />
     <ClInclude Include="SQLService.hpp" />
     <ClInclude Include="ThreadPool.hpp" />

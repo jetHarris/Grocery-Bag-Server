@@ -79,9 +79,11 @@ public:
 	void close() {
 		if (!_closedCalled) {
 			_closedCalled = true;
-			shutdown(_connectedSocket, SD_BOTH);
-			if (_connectedSocket)
+			
+			if (_connectedSocket) {
+				shutdown(_connectedSocket, SD_BOTH);
 				closesocket(_connectedSocket);
+			}
 		}
 	}
 

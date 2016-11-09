@@ -50,7 +50,9 @@ void C11ThreadPool::waitForTask()
 
 				SQLService service(task, _mysql);
 				service.waitForIncomingMessage();
-
+				
+				oss.str("");
+				oss.clear();
 				oss << "[" << this_thread::get_id() << "] finishing task..." << endl;
 				oss << " IP: " << task->getClientIP() << " Port: " << task->getClientPort() << endl;
 				_CONSOLE_OUT(oss.str());

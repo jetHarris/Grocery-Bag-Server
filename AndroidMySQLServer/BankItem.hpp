@@ -2,7 +2,7 @@
 
 struct ItemBankItem {
 	int id;
-	char item_name[60];	
+	char item_name[50];	
 	double price;
 	double sale_price;
 	struct {

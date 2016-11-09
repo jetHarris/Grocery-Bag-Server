@@ -5,8 +5,13 @@
 #include <sstream>
 #include "view.hpp"
 #include "BankItem.hpp"
+#include "ListBankItem.hpp"
+
 #define GET_ITEM_BANK_ITEMS (char)0xAA
 #define GIVE_ITEM_BANK_ITEMS (char)0xAB
+
+#define GET_LISTS (char)0xAC
+#define GIVE_LISTS (char)0xAD
 
 class SQLService{
 	ConnectedPackage* _cp;
@@ -15,7 +20,11 @@ class SQLService{
 	void ServiceRequest(std::vector<char>& data);
 
 	void stuff(ItemBankItem* ibi, std::vector<char>& data);
+	void stuff(ListBankItem * lbi, std::vector<char>& data);
 	void copy(char const* src, std::vector<char>& dest, size_t size);
+
+	unsigned short getItemBankItemSize();
+	unsigned short getListBankItemSize();
 	//void stuff(ItemBankItem& ibi, std::vector<char>& data);
 public:
 	SQLService(ConnectedPackage* cp, MySql& mysql) : _cp(cp), _mysql(mysql) {}
