@@ -95,9 +95,10 @@ public:
 	}
 
 	~TCPServerSocket() {
+		close();
 		for (auto& s : _activeSockets)
 			delete s;
-		close();
+		
 		WSACleanup();
 		
 	}

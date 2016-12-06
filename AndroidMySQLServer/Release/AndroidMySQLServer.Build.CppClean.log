@@ -1,8 +1,14 @@
 d:\drives\git\androidmysqlserver\androidmysqlserver\release\vc140.pdb
+d:\drives\git\androidmysqlserver\androidmysqlserver\release\view.obj
+d:\drives\git\androidmysqlserver\androidmysqlserver\release\threadpool.obj
 d:\drives\git\androidmysqlserver\androidmysqlserver\release\tcpsocket.obj
+d:\drives\git\androidmysqlserver\androidmysqlserver\release\sqlservice.obj
 d:\drives\git\androidmysqlserver\androidmysqlserver\release\main.obj
-d:\drives\git\androidmysqlserver\release\androidmysqlserver.pdb
+d:\drives\git\androidmysqlserver\androidmysqlserver\release\c11threadpool.obj
 d:\drives\git\androidmysqlserver\release\androidmysqlserver.exe
+d:\drives\git\androidmysqlserver\release\androidmysqlserver.ipdb
+d:\drives\git\androidmysqlserver\release\androidmysqlserver.iobj
+d:\drives\git\androidmysqlserver\release\androidmysqlserver.pdb
 d:\drives\git\androidmysqlserver\androidmysqlserver\release\androidm.51d6eb6b.tlog\cl.command.1.tlog
 d:\drives\git\androidmysqlserver\androidmysqlserver\release\androidm.51d6eb6b.tlog\cl.read.1.tlog
 d:\drives\git\androidmysqlserver\androidmysqlserver\release\androidm.51d6eb6b.tlog\cl.write.1.tlog

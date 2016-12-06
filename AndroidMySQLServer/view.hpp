@@ -7,8 +7,6 @@
 #include <string>
 
 
-
-
 class View {
 	std::mutex _consoleMtx;
 	static View* view;

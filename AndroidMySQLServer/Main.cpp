@@ -4,7 +4,7 @@
 #include "C11ThreadPool.hpp"
 #include "view.hpp"
 #include <sstream>
-#include "BankItem.hpp"
+#include "DTO.hpp"
 
 using namespace std;
 
@@ -102,6 +102,10 @@ int main() {
 		_CONSOLE_OUT(oss.str());
 	}
 #pragma endregion
+
+	ostringstream oss;
+	oss << "Listening on port " << tSock.getPort() << endl;
+	_CONSOLE_OUT(oss.str());
 
 	sql::SQLString database = "tcp://localhost:3306";
 	sql::SQLString user = "root";

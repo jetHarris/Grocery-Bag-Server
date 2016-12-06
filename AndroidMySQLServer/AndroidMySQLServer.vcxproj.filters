@@ -33,10 +33,7 @@
     <ClInclude Include="SQLService.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BankItem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ListBankItem.hpp">
+    <ClInclude Include="DTO.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
